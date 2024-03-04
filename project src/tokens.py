@@ -1,0 +1,72 @@
+class BehaviourToken:
+    NT = -1.5 #no token
+    NE = -1 #negative prompt
+    PE = .5 #positive prompt
+    DIR = 15 #direction
+    DIR_F = DIR * 2 #direction front
+    DIR_B = DIR * 4 #direction backward
+    DIR_L = DIR * 6 #direction left
+    DIR_R = DIR * 8 #direction right
+    DIR_N = DIR * 10 #direction null
+    MV = 1 #movement
+    M_I = 0 #idle /  no movement
+    M_NE = M_I #negative movement prompt
+    M_FW = MV * 2 #froward
+    M_BW = MV * 4 #backward
+    MV_F = 13 #move fast
+    MVF_FW = MV_F * 2 #move fast forward
+    MVF_BW = MV_F * 4 #move fast backward
+    RT = 3 #rotate
+    RT_I = RT * 6 #rotate idle
+    RT_L = RT * 2 #rotate left
+    RT_R = RT * 4 #rotate right
+    RT_B = RT * 6 #rotate back
+    RT_NE = RT_I #negative rotation prompt
+    INT = 5 #internet
+    IN_Q = INT * 2 #internet query
+    IN_HW = INT * 4 #homework
+    HM = 7 #home
+    HM_R = HM * 2 #home appliance reference
+    REF = 9 #reference
+    QR = 11 #query
+    QS = 17 #question
+class EmotionToken:
+    pass
+class BehaviourTokenEQ:
+    MV = ['move', 'walk', 'moving'] #movement instance / trigger
+    M_I = ['stop', 'stand', 'wait'] #move idle / stop
+    PE = ['do', 'yes', 'sure', 'ok', 'go'] #positite prompt
+    NE = ['don\'t', 'do not', 'no', 'not', 'stop'] #negative prompt
+    M_NE = MV + M_I + NE #no movement
+    M_FW = ['forward', 'forwards', 'front', 'ahead'] #movement trigger (forward)
+    M_BW = ['backward', 'backwards', 'back', 'behind'] #movement trigger (backward)
+    DIR = ['towards', 'onwards', 'over', 'here', 'there'] #direction intent
+    DIR_R = ['right'] #direction right
+    DIR_L = ['left'] #direction left
+    DIR_F = M_FW #direction forward
+    DIR_B = M_BW #direction backward
+    DIR_I = DIR_F + ['here', 'there'] #direction idle
+    MV_F = ['fast', 'sprint', 'run', 'dash'] #fast movement
+    MVF_FW = M_FW + MV_F #fast move forward
+    MVF_BW = M_BW + MV_F #fast move backward
+    RT = ['rotate', 'look', 'turn', 'see', 'watch'] #rotate / turn
+    RT_I = ['forward', 'here', 'there', 'forwards'] #dont rotate / turn
+    RT_L = ['left'] #turn left
+    RT_R = ['right'] #turn right
+    RT_NE = RT + RT_I + NE #no rotation
+    RT_BACK = ['backward', 'backwards', 'back', 'behind', 'around'] #turn back
+    INT = ['web', 'website', 'google', 'search'] #interact with the internet to search answers for question
+    QR = ['what', 'when', 'where', 'are', 'were', 'is', 'if', 'did', 'have', 'do', 'why', 'explain', 'hello', 'hi', 'good', 'who', 'hu', 'r', 'nice', 'how'] #question reference (used after INT / QS command intents)
+    QS = QR #question asked to the ai (used when a question tag is found and is a stream of question (comes after INT))
+    REF = ['steps', 'feet', 'inches', 'foot', 'help'] #reference words used between MV and INT / QS command intents
+class Intents:
+    MV = 0x10
+    RT = 0x11
+    MV_F = 0x12
+    DIR = 0x13
+    NI = -.1
+class NIntents:
+    MV = lambda x: x in [BehaviourToken.M_FW, BehaviourToken.M_BW, BehaviourToken.M_I, BehaviourToken, BehaviourToken.M_NE, BehaviourToken.DIR, BehaviourToken.DIR_B, BehaviourToken.DIR_F, BehaviourToken.DIR_L, BehaviourToken.DIR_R, BehaviourToken.MV_F, BehaviourToken.RT_I, BehaviourToken.RT_B]
+    RT = lambda x: x in [BehaviourToken.RT_I, BehaviourToken.RT_L, BehaviourToken.RT_R, BehaviourToken.RT_B, BehaviourToken.RT_NE]
+    MV_F = lambda x: x in [BehaviourToken.MV_F, BehaviourToken.MVF_FW, BehaviourToken.MVF_BW]
+    DIR = lambda x: x in [BehaviourToken.DIR_B, BehaviourToken.DIR_F, BehaviourToken.DIR_L, BehaviourToken.DIR_R, BehaviourToken.DIR_N]

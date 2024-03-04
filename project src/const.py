@@ -1,0 +1,10 @@
+A0 = 15
+A1 = 16
+A2 = 17
+A3 = 18
+A4 = 19
+A5 = 20
+A6 = 21
+A7 = 22
+
+OPENAI_API_KEY = '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'
